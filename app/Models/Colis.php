@@ -19,22 +19,23 @@ class Colis extends Model
         'destinataire_adresse',
         'expediteur_nom',
         'expediteur_telephone',
-        'expediteur_id',
-        'agence_id'
+        'expediteur_adresse',
+        'agence_id',
     ];
 
-    public function expedition()
-    {
-        return $this->belongsToMany(Expedition::class);
-    }
-
+    /**
+     * Relation : un colis appartient à une agence.
+     */
     public function agence()
     {
         return $this->belongsTo(Agence::class);
     }
 
-    public function paiement()
+    /**
+     * Relation : un colis peut être rattaché à plusieurs expéditions (via la table pivot).
+     */
+    public function expeditions()
     {
-        return $this->hasMany(Paiement::class);
+        return $this->belongsToMany(Expedition::class, 'colis_expedition');
     }
 }

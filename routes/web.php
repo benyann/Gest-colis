@@ -3,37 +3,50 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ColisController;
+use App\Http\Controllers\AgenceController;
+use App\Http\Controllers\ChauffeurController;
+use App\Http\Controllers\ExpeditionController;
 
-// Page d’accueil
+// =================== PAGE D’ACCUEIL ===================
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-// Formulaire d'inscription
-Route::get('/register', function () {
-    return view('auth.register');
-})->name('register.form');
 
-// Traitement de l'inscription
+// =================== AUTHENTIFICATION ===================
+// Inscription
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-// Formulaire de connexion
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login.form');
-
-// Traitement de la connexion
+// Connexion
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-// Déconnexion (protégée)
+// Déconnexion
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
-// Tableau de bord (protégé)
+
+// =================== TABLEAU DE BORD ===================
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('auth')->name('dashboard');
 
-// Ressources colis (protégées)
+
+// =================== ROUTES PROTÉGÉES ===================
 Route::middleware('auth')->group(function () {
+
+    // Gestion des colis
     Route::resource('colis', ColisController::class);
+
+    // Gestion des agences
+    Route::resource('agence', AgenceController::class);
+
+    // Gestion des chauffeurs
+    Route::resource('chauffeur', ChauffeurController::class);
+
+    // Gestion des expéditions
+    Route::resource('expedition', ExpeditionController::class);
+
+    // (Optionnel) Affichage des colis d'une expédition
+    Route::get('/expedition/{expedition}/colis', [ExpeditionController::class, 'showColis'])->name('expedition.colis');
 });

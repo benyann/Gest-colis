@@ -8,58 +8,80 @@ use Illuminate\Http\Request;
 class ChauffeurController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Affiche la liste des chauffeurs.
      */
     public function index()
     {
-        //
+        $chauffeurs = Chauffeur::all();
+        return view('chauffeur.index', compact('chauffeurs'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Affiche le formulaire de création d’un chauffeur.
      */
     public function create()
     {
-        //
+        return view('chauffeur.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Enregistre un nouveau chauffeur en base de données.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nom'       => 'required|string|max:255',
+            'prenom'    => 'required|string|max:255',
+            'telephone' => 'required|string|max:20',
+            'matricule' => 'required|string|max:50|unique:chauffeurs,matricule',
+            'statut'    => 'required|in:disponible,occupé',
+        ]);
+
+        Chauffeur::create($request->all());
+
+        return redirect()->route('chauffeur.index')->with('success', 'Chauffeur ajouté avec succès.');
     }
 
     /**
-     * Display the specified resource.
+     * Affiche les détails d’un chauffeur spécifique.
      */
     public function show(Chauffeur $chauffeur)
     {
-        //
+        return view('chauffeur.show', compact('chauffeur'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Affiche le formulaire d’édition d’un chauffeur.
      */
     public function edit(Chauffeur $chauffeur)
     {
-        //
+        return view('chauffeur.edit', compact('chauffeur'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Met à jour les informations d’un chauffeur existant.
      */
     public function update(Request $request, Chauffeur $chauffeur)
     {
-        //
+        $request->validate([
+            'nom'       => 'required|string|max:255',
+            'prenom'    => 'required|string|max:255',
+            'telephone' => 'required|string|max:20',
+            'matricule' => 'required|string|max:50|unique:chauffeurs,matricule,' . $chauffeur->id,
+            'statut'    => 'required|in:disponible,occupé',
+        ]);
+
+        $chauffeur->update($request->all());
+
+        return redirect()->route('chauffeur.index')->with('success', 'Chauffeur mis à jour avec succès.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Supprime un chauffeur.
      */
     public function destroy(Chauffeur $chauffeur)
     {
-        //
+        $chauffeur->delete();
+        return redirect()->route('chauffeur.index')->with('success', 'Chauffeur supprimé avec succès.');
     }
 }

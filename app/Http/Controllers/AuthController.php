@@ -9,6 +9,19 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    // Affiche le formulaire de connexion
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
+
+    // Affiche le formulaire d'inscription (optionnel)
+    public function showRegisterForm()
+    {
+        return view('auth.register');
+    }
+
+    // Traitement de l'inscription
     public function register(Request $request)
     {
         $request->validate([
@@ -28,6 +41,7 @@ class AuthController extends Controller
         return redirect()->route('dashboard');
     }
 
+    // Traitement du login
     public function login(Request $request)
     {
         $request->validate([
@@ -47,6 +61,7 @@ class AuthController extends Controller
         ])->withInput();
     }
 
+    // Déconnexion
     public function logout(Request $request)
     {
         Auth::logout();
@@ -56,6 +71,7 @@ class AuthController extends Controller
         return redirect()->route('login');
     }
 
+    // Retourne l'utilisateur connecté en JSON
     public function me(Request $request)
     {
         return response()->json(Auth::user());
