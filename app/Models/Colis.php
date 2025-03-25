@@ -10,32 +10,13 @@ class Colis extends Model
     use HasFactory;
 
     protected $fillable = [
-        'reference',
-        'description',
-        'valeur',
-        'poids',
-        'destinataire_nom',
-        'destinataire_telephone',
-        'destinataire_adresse',
-        'expediteur_nom',
-        'expediteur_telephone',
-        'expediteur_adresse',
-        'agence_id',
+        'expedition_id', 'reference', 'description', 'valeur', 'poids',
+        'destinataire_nom', 'destinataire_telephone', 'destinataire_adresse',
+        'expediteur_nom', 'expediteur_telephone', 'expediteur_adresse'
     ];
 
-    /**
-     * Relation : un colis appartient à une agence.
-     */
-    public function agence()
+    public function expedition()
     {
-        return $this->belongsTo(Agence::class);
-    }
-
-    /**
-     * Relation : un colis peut être rattaché à plusieurs expéditions (via la table pivot).
-     */
-    public function expeditions()
-    {
-        return $this->belongsToMany(Expedition::class, 'colis_expedition');
+        return $this->belongsTo(Expedition::class);
     }
 }

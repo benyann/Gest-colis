@@ -17,101 +17,43 @@
                     </tr>
                     <tr>
                         <th class="text-end">Référence :</th>
-                        <td>{{ $colis->reference }}</td>
+                        <td>{{ $colis->reference ?? '-' }}</td>
                     </tr>
                     <tr>
                         <th class="text-end">Description :</th>
-                        <td>{{ $colis->description }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-end">Type de colis :</th>
-                        <td>{{ $colis->type ?? '-' }}</td>
+                        <td>{{ $colis->description ?? '-' }}</td>
                     </tr>
                     <tr>
                         <th class="text-end">Poids (kg) :</th>
-                        <td>{{ $colis->poids ?? '-' }} Kg</td>
+                        <td>{{ $colis->poids ? $colis->poids . ' Kg' : '-' }}</td>
                     </tr>
                     <tr>
                         <th class="text-end">Valeur (FCFA) :</th>
                         <td>{{ $colis->valeur ? number_format($colis->valeur, 0, ',', ' ') . ' F CFA' : '-' }}</td>
                     </tr>
                     <tr>
-                        <th class="text-end">Montant du transport :</th>
-                        <td>{{ $colis->prix ? number_format($colis->prix, 0, ',', ' ') . ' F CFA' : '-' }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-end">Ville de départ :</th>
-                        <td>{{ $colis->ville_depart ?? '-' }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-end">Ville d'arrivée :</th>
-                        <td>{{ $colis->ville_arrivee ?? '-' }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-end">Date d'envoi :</th>
-                        <td>{{ $colis->date_envoi ? \Carbon\Carbon::parse($colis->date_envoi)->format('d/m/Y') : '-' }}</td>
-                    </tr>
-
-                    <tr><td colspan="2"><hr></td></tr>
-
-                    <tr>
-                        <th class="text-end text-info">Expéditeur :</th>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th class="text-end">Nom :</th>
-                        <td>{{ $colis->expediteur_nom ?? ($colis->expediteur->nom ?? '-') }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-end">Téléphone :</th>
-                        <td>{{ $colis->expediteur_telephone ?? ($colis->expediteur->telephone ?? '-') }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-end">Adresse :</th>
-                        <td>{{ $colis->expediteur_adresse ?? '-' }}</td>
-                    </tr>
-
-                    <tr><td colspan="2"><hr></td></tr>
-
-                    <tr>
-                        <th class="text-end text-info">Destinataire :</th>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th class="text-end">Nom :</th>
+                        <th class="text-end">Nom du destinataire :</th>
                         <td>{{ $colis->destinataire_nom ?? '-' }}</td>
                     </tr>
                     <tr>
-                        <th class="text-end">Téléphone :</th>
+                        <th class="text-end">Téléphone du destinataire :</th>
                         <td>{{ $colis->destinataire_telephone ?? '-' }}</td>
                     </tr>
                     <tr>
-                        <th class="text-end">Adresse :</th>
+                        <th class="text-end">Adresse du destinataire :</th>
                         <td>{{ $colis->destinataire_adresse ?? '-' }}</td>
                     </tr>
-
-                    <tr><td colspan="2"><hr></td></tr>
-
                     <tr>
-                        <th class="text-end">Date d'expédition :</th>
-                        <td>{{ $colis->expedition ? \Carbon\Carbon::parse($colis->expedition->date)->format('d/m/Y') : '-' }}</td>
+                        <th class="text-end">Nom de l'expéditeur :</th>
+                        <td>{{ $colis->expediteur_nom ?? '-' }}</td>
                     </tr>
                     <tr>
-                        <th class="text-end">Heure d'expédition :</th>
-                        <td>{{ $colis->expedition ? \Carbon\Carbon::parse($colis->expedition->heure)->format('H:i') : '-' }}</td>
-                    </tr>
-
-                    <tr><td colspan="2"><hr></td></tr>
-
-                    <tr>
-                        <th class="text-end">Statut :</th>
-                        <td>
-                            <span class="badge bg-info">{{ $colis->statut ?? 'Non défini' }}</span>
-                        </td>
+                        <th class="text-end">Téléphone de l'expéditeur :</th>
+                        <td>{{ $colis->expediteur_telephone ?? '-' }}</td>
                     </tr>
                     <tr>
-                        <th class="text-end">Commentaires :</th>
-                        <td>{{ $colis->commentaire ?? 'Aucun commentaire' }}</td>
+                        <th class="text-end">Adresse de l'expéditeur :</th>
+                        <td>{{ $colis->expediteur_adresse ?? '-' }}</td>
                     </tr>
                 </table>
                 @else

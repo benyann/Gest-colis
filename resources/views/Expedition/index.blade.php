@@ -21,7 +21,7 @@
                 <i class="fa fa-check-circle fa-3x text-success"></i>
                 <div class="ms-3">
                     <p class="mb-2">Expéditions terminées</p>
-                    <h6 class="mb-0">--</h6> {{-- À adapter plus tard --}}
+                    <h6 class="mb-0">{{ $expeditions->where('statut', 'terminée')->count() }}</h6>
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
                 <i class="fa fa-clock fa-3x text-warning"></i>
                 <div class="ms-3">
                     <p class="mb-2">Expéditions en cours</p>
-                    <h6 class="mb-0">--</h6> {{-- À adapter plus tard --}}
+                    <h6 class="mb-0">{{ $expeditions->where('statut', 'en cours')->count() }}</h6>
                 </div>
             </div>
         </div>
@@ -52,9 +52,10 @@
             <table class="table text-start align-middle table-bordered table-hover mb-0">
                 <thead class="text-white bg-dark">
                     <tr>
-                        <th>#</th>
                         <th>Référence</th>
+                        <th>Nom</th>
                         <th>Date</th>
+                        <th>Heure</th>
                         <th>Agence de départ</th>
                         <th>Agence d’arrivée</th>
                         <th>Chauffeur</th>
@@ -66,15 +67,16 @@
                 <tbody>
                     @forelse($expeditions as $expedition)
                         <tr>
-                            <td>EXP-000{{ $expedition->id }}</td>
                             <td>{{ $expedition->reference }}</td>
-                            <td>{{ \Carbon\Carbon::parse($expedition->date)->format('d/m/Y') }}</td>
-                            <td>{{ $expedition->agence_depart->nom ?? 'N/A' }}</td>
-                            <td>{{ $expedition->agence_arrivee->nom ?? 'N/A' }}</td>
+                            <td>{{ $expedition->nom }}</td>
+                            <td>{{ \Carbon\Carbon::parse($expedition->date_expedition)->format('d/m/Y') }}</td>
+                            <td>{{ $expedition->heure_expedition }}</td>
+                            <td>{{ $expedition->agenceDepart->nom ?? 'N/A' }}</td>
+                            <td>{{ $expedition->agenceArrivee->nom ?? 'N/A' }}</td>
                             <td>{{ $expedition->chauffeur->nom ?? 'Non attribué' }}</td>
-                            <td>{{ $expedition->colis_count ?? 0 }}</td>
+                            <td>{{ $expedition->colis()->count() }}</td>
                             <td>
-                                <span class="badge bg-{{ $expedition->statut == 'en cours' ? 'warning' : 'success' }}">
+                                <span class="badge bg-{{ $expedition->statut == 'en cours' ? 'warning' : ($expedition->statut == 'terminée' ? 'success' : 'secondary') }}">
                                     {{ ucfirst($expedition->statut) }}
                                 </span>
                             </td>

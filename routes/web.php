@@ -36,7 +36,8 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
 
     // Gestion des colis
-    Route::resource('colis', ColisController::class);
+    Route::resource('colis', ColisController::class)->parameters([
+        'colis' => 'colis']);
 
     // Gestion des agences
     Route::resource('agence', AgenceController::class);
@@ -46,7 +47,4 @@ Route::middleware('auth')->group(function () {
 
     // Gestion des expéditions
     Route::resource('expedition', ExpeditionController::class);
-
-    // (Optionnel) Affichage des colis d'une expédition
-    Route::get('/expedition/{expedition}/colis', [ExpeditionController::class, 'showColis'])->name('expedition.colis');
 });

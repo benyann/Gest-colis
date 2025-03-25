@@ -21,7 +21,7 @@
                 <i class="fa fa-check-circle fa-3x text-success"></i>
                 <div class="ms-3">
                     <p class="mb-2">Colis livrés</p>
-                    <h6 class="mb-0">--</h6> {{-- À adapter plus tard --}}
+                    <h6 class="mb-0">--</h6> {{--  --}}
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
                 <i class="fa fa-clock fa-3x text-warning"></i>
                 <div class="ms-3">
                     <p class="mb-2">Colis en attente</p>
-                    <h6 class="mb-0">--</h6> {{-- Idem --}}
+                    <h6 class="mb-0">--</h6> {{--  --}}
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@
             <table class="table text-start align-middle table-bordered table-hover mb-0">
                 <thead class="text-white bg-dark">
                     <tr>
-                        <th>#</th>
+                        <th>Code colis</th>
                         <th>Référence</th>
                         <th>Description</th>
                         <th>Poids (kg)</th>

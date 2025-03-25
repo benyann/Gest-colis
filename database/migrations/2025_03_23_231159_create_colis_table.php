@@ -26,15 +26,15 @@ return new class extends Migration {
             $table->string('expediteur_telephone');
             $table->string('expediteur_adresse');
 
-            // Lien avec l’agence
-            $table->unsignedBigInteger('agence_id')->nullable();
+            // Lien avec l'expédition
+            $table->unsignedBigInteger('expedition_id');
 
             $table->timestamps();
 
             // Foreign Key
-            $table->foreign('agence_id')
-                ->references('id')->on('agences')
-                ->onDelete('set null');
+            $table->foreign('expedition_id')
+                ->references('id')->on('expeditions')
+                ->onDelete('cascade');
         });
     }
 
