@@ -15,6 +15,9 @@ class Colis extends Model
         'expediteur_nom', 'expediteur_telephone', 'expediteur_adresse'
     ];
 
+    // Relation avec le modèle Paiement
+
+    // Relation avec le modèle Expedition
     public function expedition()
     {
         return $this->belongsTo(Expedition::class);

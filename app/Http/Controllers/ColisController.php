@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Colis;
 use App\Models\Expedition;
+use Barryvdh\DomPDF\Facade\Pdf as Pdf;
 use Illuminate\Http\Request;
 
 class ColisController extends Controller
@@ -41,14 +42,20 @@ class ColisController extends Controller
 
         Colis::create($request->all());
 
+        $prix = $request->input('valeur') * 0.05; // Exemple de calcul de prix
+
         return redirect()->route('colis.index')->with('success', 'Colis créé avec succès.');
     }
 
     // Afficher les détails d'un colis
     public function show($id)
     {
-        $colis = Colis::with('expedition')->findOrFail($id);
-        return view('colis.show', compact('colis'));
+        $colis = Colis::findOrFail($id);
+
+        // Calculer le prix comme 5% de la valeur du colis
+        $prix = $colis->valeur * 0.05;
+
+        return view('colis.show', compact('colis', 'prix'));
     }
 
     // Afficher le formulaire de modification d'un colis
@@ -89,5 +96,14 @@ class ColisController extends Controller
         $colis->delete();
 
         return redirect()->route('colis.index')->with('success', 'Colis supprimé avec succès.');
+    }
+
+    public function imprimerRecu($id)
+    {
+        $colis = Colis::findOrFail($id);
+
+        $pdf = Pdf::loadView('colis.recu', compact('colis'));
+
+        return $pdf->download('recu-colis' . $colis->reference . '.pdf');
     }
 }

@@ -55,6 +55,10 @@
                         <th class="text-end">Adresse de l'expéditeur :</th>
                         <td>{{ $colis->expediteur_adresse ?? '-' }}</td>
                     </tr>
+                    <tr>
+                        <th class="text-end">Montant :</th>
+                        <td>{{ $prix ? number_format($prix, 0, ',', ' ') . ' F CFA' : '-' }}</td>
+                    </tr>
                 </table>
                 @else
                     <p class="text-center text-warning">Aucune information trouvée pour ce colis.</p>
@@ -67,6 +71,7 @@
                     <a href="{{ route('colis.edit', $colis->id) }}" class="btn btn-primary">
                         <i class="fa fa-edit me-1"></i> Modifier
                     </a>
+                    <a href="{{ route('colis.imprimer-recu', $colis->id) }}" class="btn btn-success">Imprimer le reçu</a>
                 </div>
             </div>
         </div>

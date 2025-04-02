@@ -30,11 +30,6 @@
                     <a href="{{ route('agence.index') }}" class="dropdown-item">Agences</a>
                 </div>
             </div>
-
-            <a href="#" class="nav-item nav-link"><i class="fa fa-credit-card me-2"></i>Paiements</a>
-            <a href="#" class="nav-item nav-link"><i class="fa fa-map-marker-alt me-2"></i>Suivi</a>
-            <a href="#" class="nav-item nav-link"><i class="fa fa-file-alt me-2"></i>Rapports</a>
-            <a href="#" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Statistiques</a>
         </div>
     </nav>
 </div>
@@ -55,8 +50,6 @@
                     <span class="d-none d-lg-inline-flex">{{ Auth::user()->name ?? 'Utilisateur' }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-bottom m-0">
-                    <a href="#" class="dropdown-item">Profil</a>
-                    <a href="#" class="dropdown-item">Paramètres</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="dropdown-item">Déconnexion</button>
